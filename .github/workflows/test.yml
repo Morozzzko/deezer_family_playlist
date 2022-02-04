@@ -1,0 +1,28 @@
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    services:
+      postgres:
+        image: postgres:latest
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+    env:
+      MIX_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: '24.2'
+          elixir-version: '1.13.2'
+      - run: mix deps.get
+      - run: mix coveralls.json
+      - name: Test & submit coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CODECLIMATE_TEST_REPORTER_ID}}
+        with:
+          coverageLocations: cover/coveralls.json:excoveralls
