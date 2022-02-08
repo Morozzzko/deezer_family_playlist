@@ -19,8 +19,9 @@ jobs:
           otp-version: '24.2'
           elixir-version: '1.13.2'
       - run: mix deps.get
-      - run: mix coveralls.json
-      - name: Test & submit coverage
+      - name: Test
+        run: mix coveralls.json
+      - name: Submit coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CODECLIMATE_TEST_REPORTER_ID}}
