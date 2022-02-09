@@ -39,5 +39,5 @@ jobs:
             -Dsonar.coverageReportPaths=cover/excoveralls.xml
             -Dsonar.projectKey=Morozzzko_deezer_family_playlist
             -Dsonar.organization=morozzzko
-            -Dsonar.sources=./lib/**/*
+            -Dsonar.sources=/lib/
 
